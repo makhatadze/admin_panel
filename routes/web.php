@@ -16,3 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::any('/{slug?}', function () {
     return view('welcome');
 });
+
+Route::any('/{slug?}/{slug2?}', function () {
+    return view('welcome');
+});
+
+Route::any('/{slug?}/{slug2?}/{slug3?}', function () {
+    return view('welcome');
+});
