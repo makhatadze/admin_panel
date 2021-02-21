@@ -9,6 +9,7 @@ import {Provider} from "react-redux";
 import { withTranslation } from 'react-i18next';
 import Admin from "./modules/admin/Admin";
 import {logoutUser, setCurrentUser} from "./actions/authActions";
+import {getCurrentProfile} from "./actions/profileActions";
 
 
 // Check for token
@@ -19,6 +20,7 @@ if (localStorage.jwtToken) {
     const decoded = jwt_decode(localStorage.jwtToken);
     // Set user and isAuthenticated
     store.dispatch(setCurrentUser(decoded));
+    store.dispatch(getCurrentProfile())
     // Check for expired token
     const currentTime = Date.now() / 1000;
     if (decoded.exp < currentTime) {
@@ -27,8 +29,7 @@ if (localStorage.jwtToken) {
         // Clear current Profile
         store.dispatch(clearCurrentProfile());
         // Redirect to login
-        console.log(123)
-        window.location.href = '/login';
+        window.location.href = '/admin/login';
     }
 }
 

@@ -8,6 +8,7 @@ import Register from "../modules/admin/pages/auth/Register";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../modules/admin/pages/dashboard/Dashboard";
 import ProductList from "../modules/admin/pages/product/ProductList";
+import UserList from "../modules/admin/pages/user/UserList";
 
 
 
@@ -22,6 +23,7 @@ const Routes = () => {
                 <PrivateRoute exact path='/admin' component={Dashboard} />
                 <PrivateRoute exact path='/admin/products' component={ProductList} />
                 <PrivateRoute exact path='/admin/dashboard' component={Dashboard} />
+                <PrivateRoute exact path='/admin/users' component={UserList} />
                 <Route component={NotFound} />
             </Switch>
         </>
