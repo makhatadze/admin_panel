@@ -12,6 +12,7 @@ const Provider = ({children, locale = LOCALES.ENGLISH}) => (
     >
         {children}
     </IntlProvider>
+
 );
 
 export default Provider;
