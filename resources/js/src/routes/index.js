@@ -6,7 +6,8 @@ import NotFound from "../modules/client/vendor/not-found/NotFound";
 import Login from "../modules/admin/pages/auth/Login";
 import Register from "../modules/admin/pages/auth/Register";
 import PrivateRoute from "./PrivateRoute";
-import Dashboard from "../modules/admin/dashboard/Dashboard";
+import Dashboard from "../modules/admin/pages/dashboard/Dashboard";
+import ProductList from "../modules/admin/pages/product/ProductList";
 
 
 
@@ -19,6 +20,7 @@ const Routes = () => {
                 <Route exact path='/admin/login' component={Login} />
                 <Route exact path='/admin/register' component={Register} />
                 <PrivateRoute exact path='/admin' component={Dashboard} />
+                <PrivateRoute exact path='/admin/products' component={ProductList} />
                 <PrivateRoute exact path='/admin/dashboard' component={Dashboard} />
                 <Route component={NotFound} />
             </Switch>
