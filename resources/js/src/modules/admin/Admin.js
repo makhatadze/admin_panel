@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import translate from "../../shared/i18n/translate";
 import {Route} from "react-router-dom";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'

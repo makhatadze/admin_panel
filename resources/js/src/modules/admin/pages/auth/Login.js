@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {loginUser} from "../../../../actions/authActions";
 import TextFieldGroup from "../../components/TextFieldGroup";
-import translate from "../../../../shared/i18n/translate";
-import {FormattedMessage} from "react-intl";
+import {withTranslation} from "react-i18next";
 
 class Login extends Component {
     constructor() {
@@ -52,18 +51,18 @@ class Login extends Component {
 
     render() {
         const {errors} = this.state;
-
+        const { t } = this.props;
         return (
             <div className="container">
                 <div className="row">
                     <div className="col-md-8 m-auto">
-                        <h1 className="display-4 text-center">{translate('Log In')}</h1>
+                        <h1 className="display-4 text-center">{t('Log In')}</h1>
                         <p className="lead text-center">
-                            {translate('Sign in to your account')}
+                            {t('Sign in to your account')}
                         </p>
                         <form onSubmit={this.onSubmit}>
                             <TextFieldGroup
-                                placeholder="Email Address"
+                                placeholder={t('Enter Email')}
                                 name="email"
                                 type="email"
                                 value={this.state.email}
@@ -71,14 +70,14 @@ class Login extends Component {
                                 error={errors.email}
                             />
                             <TextFieldGroup
-                                placeholder="Enter Password"
+                                placeholder={t("Enter Password")}
                                 name="password"
                                 type="password"
                                 value={this.state.password}
                                 onChange={this.onChange}
                                 error={errors.password}
                             />
-                            <button type="submit" className="btn btn-info btn-block mt-4">{translate('Submit')}</button>
+                            <button type="submit" className="btn btn-info btn-block mt-4">{t('Submit')}</button>
 
                         </form>
                     </div>
@@ -100,5 +99,4 @@ const mapStateToProps = state => ({
 });
 
 
-
-export default connect(mapStateToProps, {loginUser})(Login);
+export default withTranslation()(connect(mapStateToProps, {loginUser})(Login))

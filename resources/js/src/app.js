@@ -1,37 +1,37 @@
-import React,{Component, useState} from 'react';
-import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import React, {Component, useState} from 'react';
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import jwt_decode from 'jwt-decode';
 import setAuthToken from "./utils/setAuthToken";
-import { I18nProvider, LOCALES } from "./shared/i18n";
-
-import translate from "./shared/i18n/translate";
+import i18n from './shared/i18n'
 
 import store from './store';
 import {Provider} from "react-redux";
 import Routes from './routes'
+import { withTranslation } from 'react-i18next';
 
-class App extends Component{
+class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            locale: LOCALES.ENGLISH
-        };
+    }
+
+    changeLanguage(language) {
+        localStorage.setItem('i18nextLng', language);
+        i18n.changeLanguage(language);
     }
     render() {
+        const { t } = this.props;
+
         return (
             <Provider store={store}>
-                <I18nProvider locale={this.state.locale}>
-                    <button onClick={() => this.setState({ locale: LOCALES.ENGLISH })}>ENGLISH</button>
-                    <button onClick={() => this.setState({ locale: LOCALES.GERMAN })}>GERMAN</button>
-                    <button onClick={() => this.setState({ locale: LOCALES.FRENCH })}>FRENCH</button>
-                    <Router>
-                        <Route component={Routes} />
-                    </Router>
-
-                </I18nProvider>
+                <button onClick={ () => this.changeLanguage('en')}>ENGLISH</button>
+                <button onClick={ () => this.changeLanguage('de')}>GERMAN</button>
+                <button onClick={ () => this.changeLanguage('fr')}>FRENCH</button>
+                <Router>
+                    <Route component={Routes}/>
+                </Router>
             </Provider>
         )
     }
 }
 
-export default App;
+export default withTranslation()(App)
