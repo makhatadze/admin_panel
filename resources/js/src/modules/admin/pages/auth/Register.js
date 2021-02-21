@@ -4,6 +4,9 @@ import { withRouter } from "react-router";
 import { connect } from 'react-redux';
 import { registerUser} from "../../../../actions/authActions";
 import TextFieldGroup from "../../components/TextFieldGroup";
+import {Link} from "react-router-dom";
+import {withTranslation} from "react-i18next";
+import {ToastContainer} from "react-toastify";
 
 class Register extends Component {
     constructor() {
@@ -12,7 +15,7 @@ class Register extends Component {
             name: '',
             email: '',
             password: '',
-            password2: '',
+            password_confirmation: '',
             errors: {}
         };
 
@@ -22,7 +25,7 @@ class Register extends Component {
 
     componentDidMount() {
         if (this.props.auth.isAuthenticated) {
-            this.props.history.push('/dashboard');
+            this.props.history.push('/admin/dashboard');
         }
     }
 
@@ -43,7 +46,7 @@ class Register extends Component {
             name: this.state.name,
             email: this.state.email,
             password: this.state.password,
-            password2: this.state.password2
+            password_confirmation: this.state.password_confirmation
         };
 
         this.props.registerUser(newUser, this.props.history);
@@ -51,55 +54,61 @@ class Register extends Component {
 
     render() {
         const { errors } = this.state;
+        const { t } = this.props;
 
         return (
-            <div className="register">
+            <>
+                <ToastContainer />
                 <div className="container">
                     <div className="row">
                         <div className="col-md-8 m-auto">
-                            <h1 className="display-4 text-center">Sign Up</h1>
+                            <h1 className="display-4 text-center">{t('Sign Up')}</h1>
                             <p className="lead text-center">
-                                Create your DevConnector account
+                                {t('Create your account')}
                             </p>
                             <form noValidate onSubmit={this.onSubmit}>
                                 <TextFieldGroup
-                                    placeholder="Name"
+                                    placeholder={t('Name')}
                                     name="name"
                                     value={this.state.name}
                                     onChange={this.onChange}
-                                    error={errors.name}
+                                    errors={errors.name}
                                 />
                                 <TextFieldGroup
-                                    placeholder="Email"
+                                    placeholder={t('Email')}
                                     name="email"
                                     type="email"
                                     value={this.state.email}
                                     onChange={this.onChange}
-                                    error={errors.email}
-                                    info="This site uses Gravatar so if you want a profile image, use a Gravatar email"
+                                    errors={errors.email}
+                                    info="help"
                                 />
                                 <TextFieldGroup
-                                    placeholder="Password"
+                                    placeholder={t('Password')}
                                     name="password"
                                     type="password"
                                     value={this.state.password}
                                     onChange={this.onChange}
-                                    error={errors.password}
+                                    errors={errors.password}
                                 />
                                 <TextFieldGroup
-                                    placeholder="Confirm Password"
-                                    name="password2"
+                                    placeholder={t('Confirm Password')}
+                                    name="password_confirmation"
                                     type="password"
-                                    value={this.state.password2}
+                                    value={this.state.password_confirmation}
                                     onChange={this.onChange}
-                                    error={errors.password2}
+                                    errors={errors.password_confirmation}
                                 />
+                                <span>{t("Already have account?")}
+                                    {" "}
+                                    <Link to="/admin/login" className="">{t('Log In')}</Link>
+                                </span>
                                 <input type="submit" className="btn btn-info btn-block mt-4" />
                             </form>
                         </div>
                     </div>
                 </div>
-            </div>
+            </>
         );
     }
 }
@@ -115,4 +124,4 @@ const mapStateToProps = state => ({
     errors: state.errors
 });
 
-export default connect(mapStateToProps, { registerUser })(withRouter(Register));
+export default withTranslation()(connect(mapStateToProps, { registerUser })(withRouter(Register)));

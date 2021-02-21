@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import {loginUser} from "../../../../actions/authActions";
 import TextFieldGroup from "../../components/TextFieldGroup";
 import {withTranslation} from "react-i18next";
+import {toast, ToastContainer} from "react-toastify";
+import {Link} from "react-router-dom";
 
 class Login extends Component {
     constructor() {
@@ -31,6 +33,8 @@ class Login extends Component {
 
         if (nextProps.errors) {
             this.setState({errors: nextProps.errors});
+            toast.error(nextProps.errors.error)
+
         }
     }
 
@@ -51,38 +55,46 @@ class Login extends Component {
 
     render() {
         const {errors} = this.state;
-        const { t } = this.props;
+        const {t} = this.props;
         return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-8 m-auto">
-                        <h1 className="display-4 text-center">{t('Log In')}</h1>
-                        <p className="lead text-center">
-                            {t('Sign in to your account')}
-                        </p>
-                        <form onSubmit={this.onSubmit}>
-                            <TextFieldGroup
-                                placeholder={t('Enter Email')}
-                                name="email"
-                                type="email"
-                                value={this.state.email}
-                                onChange={this.onChange}
-                                error={errors.email}
-                            />
-                            <TextFieldGroup
-                                placeholder={t("Enter Password")}
-                                name="password"
-                                type="password"
-                                value={this.state.password}
-                                onChange={this.onChange}
-                                error={errors.password}
-                            />
-                            <button type="submit" className="btn btn-info btn-block mt-4">{t('Submit')}</button>
+            <>
+                <ToastContainer />
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-8 m-auto">
+                            <h1 className="display-4 text-center">{t('Log In')}</h1>
+                            <p className="lead text-center">
+                                {t('Sign in to your account')}
+                            </p>
+                            <form onSubmit={this.onSubmit}>
+                                <TextFieldGroup
+                                    placeholder={t('Enter Email')}
+                                    name="email"
+                                    type="email"
+                                    required="required"
+                                    value={this.state.email}
+                                    onChange={this.onChange}
+                                />
+                                <TextFieldGroup
+                                    placeholder={t("Enter Password")}
+                                    name="password"
+                                    type="password"
+                                    required="required"
+                                    value={this.state.password}
+                                    onChange={this.onChange}
+                                />
+                                Sign Up
+                                <span>{t("Don't have an account?")}
+                                    {" "}
+                                    <Link to="/admin/register" className="">{t('Sign Up')}</Link>
+                            </span>
+                                <button type="submit" className="btn btn-info btn-block mt-4">{t('Submit')}</button>
 
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </>
         );
     }
 }
