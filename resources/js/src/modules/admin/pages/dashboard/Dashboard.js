@@ -4,12 +4,10 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {getCurrentProfile} from '../../../../actions/profileActions'
 import Spinner from "../../components/Spinner";
-import Header from "../layout/Header";
-import SideBar from "../layout/SideBar";
-import Layout, {Content} from "antd/es/layout/layout";
-import Client from "../../../client/Client";
-import PrivateRoute from "../../../../routes/PrivateRoute";
-import ProductList from "../product/ProductList";
+import CHeader from "../../components/Header";
+import NavLeft from "../../components/NavLeft";
+import Sider from "antd/es/layout/Sider";
+import Layout, {Content, Footer} from "antd/es/layout/layout";
 
 class Dashboard extends Component {
     componentDidMount() {
@@ -29,20 +27,27 @@ class Dashboard extends Component {
             if (Object.keys(profile).length > 0) {
                 dashboardContent = (
                     <>
-                        <Header />
-                        <SideBar />
+                        <Layout className="admin-wrapper">
+                            <Sider className="nav" trigger={null} collapsible collapsed={this.props.layout.collapsed}>
+                                <NavLeft/>
+                            </Sider>
+                            <Layout className="main-wrapper">
+                                <CHeader />
+                                <Content className="content">
+                                    { this.props.children }
+                                </Content>
+                                <Footer className="footer">
+                                    <p>Copyright © 2021</p>
+                                </Footer>
+                            </Layout>
+                        </Layout>
                     </>
                 )
             } else {
                 // User is logged in but has no profile
                 dashboardContent = (
                     <div>
-                        <Header />
-                        <p className="lead text-muted">Welcome {user.name}</p>
-                        <p>You have not yet setup a profile, please add some info</p>
-                        <Link to="/create-profile" className="btn btn-lg btn-info">
-                            Create Profile
-                        </Link>
+                        <p>Copyright © 2021</p>
                     </div>
                 );
             }
@@ -64,7 +69,8 @@ Dashboard.propTypes = {
 
 const mapStateToProps = state => ({
     profile: state.profile,
-    auth: state.auth
+    auth: state.auth,
+    layout: state.layout
 });
 
 export default connect(mapStateToProps, {getCurrentProfile})(Dashboard);
