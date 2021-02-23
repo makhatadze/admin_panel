@@ -12,4 +12,5 @@ export default {
     "Email": "Email",
     "Password" : "Passwort",
     "Confirm Password" : "Kennwort bestätigen",
+    "Dashboard" : "Armaturenbrett"
 }

@@ -15,6 +15,7 @@ class NavLeft extends Component{
             pathname: this.props.location.pathname
         });
     }
+
     renderMenu (data)  {
         return data.map((item) => {
             if(item.children){
@@ -55,6 +56,7 @@ class NavLeft extends Component{
                     {this.props.layout.collapsed ? '' : <h1>Admin</h1>}
                 </div>
                 <Menu theme="dark" defaultSelectedKeys={[this.state.pathname]}>
+                    @TODO translate this nodes.
                     { this.state.menuNodeTree }
                 </Menu>
             </div>

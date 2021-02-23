@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Layout, Menu, Modal, Popover} from 'antd';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import Utils from '../../../../utils';
 import {MenuFoldOutlined, MenuUnfoldOutlined} from "@ant-design/icons";
 import './index.scss'
 import {sliderToggle} from "../../../../actions/layout";
@@ -59,6 +58,7 @@ class CHeader extends Component {
 
     render() {
         const {layout} = this.state;
+        const {profile} = this.props.profile;
         const {t} = this.props;
         return (
             <Header className="header">
@@ -76,7 +76,7 @@ class CHeader extends Component {
                          placement="bottom"
                          trigger="hover"
                 >
-                    <span className="user">hi，test</span>
+                    <span className="user">hi，{profile.user.name}</span>
                     {/*<Avatar src={require('./../../assets/author.jpg')}></Avatar>*/}
                 </Popover>
             </Header>
@@ -86,12 +86,13 @@ class CHeader extends Component {
 
 CHeader.propTypes = {
     sliderToggle: PropTypes.func.isRequired,
-    logoutUser: PropTypes.func.isRequired
+    logoutUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
     layout: state.layout,
+    profile: state.profile
 });
 
 
-export default withTranslation()(connect(mapStateToProps, {sliderToggle,logoutUser})(withRouter(CHeader)))
+export default withTranslation()(connect(mapStateToProps, {sliderToggle, logoutUser})(withRouter(CHeader)))

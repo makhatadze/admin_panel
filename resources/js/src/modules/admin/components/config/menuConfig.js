@@ -12,17 +12,17 @@ export default [
         isLevel: false,
         children: [
             {
-                title: '表格',
+                title: 'test',
                 key: '/admin/ui/table',
                 isLevel: true
             },
             {
-                title: '表单',
+                title: 'test2',
                 key: '/admin/ui/form',
                 isLevel: true
             },
             {
-                title: '弹框',
+                title: 'test3',
                 key: '/admin/ui/modal',
                 isLevel: true
             }

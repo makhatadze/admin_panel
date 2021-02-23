@@ -11,6 +11,7 @@ export default {
     "Name" : "Name",
     "Email": "Email",
     "Password" : "Password",
-    "Confirm Password" : "Confirm Password"
+    "Confirm Password" : "Confirm Password",
+    "Dashboard" : "Dashboard"
 
 }

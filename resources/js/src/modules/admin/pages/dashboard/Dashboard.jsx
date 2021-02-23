@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link, Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {getCurrentProfile} from '../../../../actions/profileActions'
@@ -8,13 +7,22 @@ import CHeader from "../../components/Header";
 import NavLeft from "../../components/NavLeft";
 import Sider from "antd/es/layout/Sider";
 import Layout, {Content, Footer} from "antd/es/layout/layout";
+import {withRouter} from "react-router";
+import {withTranslation} from "react-i18next";
 
 class Dashboard extends Component {
+    constructor(props) {
+        super(props);
+    }
     componentDidMount() {
+        if (!this.props.auth.isAuthenticated) {
+            this.props.history.push('/admin/login');
+        }
         this.props.getCurrentProfile();
     }
 
     render() {
+        const {t} = this.props;
         const {user} = this.props.auth;
         const {profile, loading} = this.props.profile;
 
@@ -27,6 +35,7 @@ class Dashboard extends Component {
             if (Object.keys(profile).length > 0) {
                 dashboardContent = (
                     <>
+                        {t('Dashboard')}
                         <Layout className="admin-wrapper">
                             <Sider className="nav" trigger={null} collapsible collapsed={this.props.layout.collapsed}>
                                 <NavLeft/>
@@ -73,4 +82,4 @@ const mapStateToProps = state => ({
     layout: state.layout
 });
 
-export default connect(mapStateToProps, {getCurrentProfile})(Dashboard);
+export default withTranslation()(withRouter(connect(mapStateToProps, {getCurrentProfile})(Dashboard)));
