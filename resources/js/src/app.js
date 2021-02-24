@@ -9,7 +9,7 @@ import {Provider} from "react-redux";
 import { withTranslation } from 'react-i18next';
 import Admin from "./modules/admin/Admin";
 import {logoutUser, setCurrentUser} from "./actions/authActions";
-import {getCurrentProfile} from "./actions/profileActions";
+import {clearCurrentProfile, getCurrentProfile} from "./actions/profileActions";
 
 
 // Check for token

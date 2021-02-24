@@ -5,6 +5,9 @@ import {
 
 const initialState = {
     data: null,
+    params: {
+
+    },
     loading: false
 };
 

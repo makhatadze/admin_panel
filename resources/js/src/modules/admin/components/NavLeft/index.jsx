@@ -56,7 +56,7 @@ class NavLeft extends Component{
                     {this.props.layout.collapsed ? '' : <h1>Admin</h1>}
                 </div>
                 <Menu theme="dark" defaultSelectedKeys={[this.state.pathname]}>
-                    @TODO translate this nodes.
+                    {/*@TODO translate this nodes.*/}
                     { this.state.menuNodeTree }
                 </Menu>
             </div>

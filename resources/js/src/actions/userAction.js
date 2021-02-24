@@ -30,17 +30,5 @@ export const setUsersLoading = () => {
     };
 };
 
-// // Create Profile
-// export const createProfile = (profileData, history) => dispatch => {
-//     axios
-//         .post('/api/v1/auth/profile', profileData)
-//         .then(res => history.push('/admin/dashboard'))
-//         .catch(err =>
-//             dispatch({
-//                 type: GET_ERRORS,
-//                 payload: err.response.data
-//             })
-//         );
-// };
 
 

@@ -20,7 +20,6 @@ Route::prefix('v1')->group(function () {
 
     });
     Route::resource('/users',UserController::class);
-
 });
 
 //Route::get('/users', function () {

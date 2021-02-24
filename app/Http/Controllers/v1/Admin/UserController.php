@@ -4,20 +4,22 @@ namespace App\Http\Controllers\v1\Admin;
 
 use App\Http\Controllers\v1\ApiController;
 use App\Http\Requests\UserRequest;
-use App\Http\Resources\UserCollection;
-use App\Models\User;
+use App\Repositories\UserRepositoryInterface;
 use Illuminate\Http\Request;
 
 class UserController extends ApiController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return UserCollection
-     */
-    public function index()
+
+    private $userRepository;
+
+    public function __construct(UserRepositoryInterface $userRepository)
     {
-        return new UserCollection(User::paginate(2)->appends(request()->query()));
+        $this->userRepository = $userRepository;
+    }
+
+    public function index(UserRequest $request)
+    {
+        return $this->userRepository->getUsers($request);
     }
 
     /**
@@ -33,7 +35,8 @@ class UserController extends ApiController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(UserRequest $request)
@@ -44,7 +47,8 @@ class UserController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -55,7 +59,8 @@ class UserController extends ApiController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -66,8 +71,9 @@ class UserController extends ApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -78,7 +84,8 @@ class UserController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
