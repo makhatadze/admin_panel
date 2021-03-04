@@ -7,7 +7,7 @@
  * @author Vito Makhatadze <vitomaxatadze@gmail.com>
  */
 
-namespace App\Models;
+namespace App\Models\Directive;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

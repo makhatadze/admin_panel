@@ -6,7 +6,7 @@
  * Time: 15:33
  * @author Vito Makhatadze <vitomaxatadze@gmail.com>
  */
-namespace App\Models;
+namespace App\Models\Directive;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
