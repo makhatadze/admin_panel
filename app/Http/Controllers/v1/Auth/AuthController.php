@@ -67,7 +67,11 @@ class AuthController extends ApiController
         } catch (JWTException $e) {
             return response()->json(['token_absent'], 500);
         }
-        return response()->json(compact('user'));
+        return response()->json([
+            'user' => $user,
+            'permissions' => 'permissions',
+            'roles' => 'roles',
+        ]);
 
     }
 }

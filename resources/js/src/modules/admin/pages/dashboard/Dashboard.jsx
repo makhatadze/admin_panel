@@ -24,15 +24,15 @@ class Dashboard extends Component {
     render() {
         const {t} = this.props;
         const {user} = this.props.auth;
-        const {profile, loading} = this.props.profile;
+        const {data, loading} = this.props.profile;
 
         let dashboardContent;
 
-        if (profile === null || loading) {
+        if (data.length === null || loading) {
             dashboardContent = <Spinner/>;
         } else {
             // Check if logged in user has profile data
-            if (Object.keys(profile).length > 0) {
+            if (Object.keys(data).length > 0) {
                 dashboardContent = (
                     <>
                         {t('Dashboard')}

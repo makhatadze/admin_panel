@@ -5,7 +5,7 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  profile: null,
+  data: [],
   loading: false
 };
 
@@ -19,13 +19,13 @@ export default function(state = initialState, action) {
     case GET_PROFILE:
       return {
         ...state,
-        profile: action.payload,
+        data: action.payload,
         loading: false
       };
     case CLEAR_CURRENT_PROFILE:
       return {
         ...state,
-        profile: null
+        data: []
       };
     default:
       return state;

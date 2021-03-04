@@ -58,7 +58,7 @@ class CHeader extends Component {
 
     render() {
         const {layout} = this.state;
-        const {profile} = this.props.profile;
+        const {data} = this.props.profile;
         const {t} = this.props;
         return (
             <Header className="header">
@@ -76,7 +76,7 @@ class CHeader extends Component {
                          placement="bottom"
                          trigger="hover"
                 >
-                    <span className="user">hi，{profile.user.name}</span>
+                    <span className="user">hi，{data.user.name}</span>
                     {/*<Avatar src={require('./../../assets/author.jpg')}></Avatar>*/}
                 </Popover>
             </Header>
