@@ -24,6 +24,10 @@ class CreatePermissionsTable extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->timestamps();
+            $table->softDeletes();
+            $table->foreignId('created_by')->unsigned()->nullable()->constrained('users')->onDelete('cascade');
+            $table->foreignId('updated_by')->unsigned()->nullable()->constrained('users')->onDelete('cascade');
+            $table->foreignId('deleted_by')->unsigned()->nullable()->constrained('users')->onDelete('cascade');
         });
     }
 
