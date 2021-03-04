@@ -10,10 +10,22 @@
 namespace App\Models\Directive;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use RichanFongdasen\EloquentBlameable\BlameableTrait;
 
 class Role extends Model
 {
     use BlameableTrait, softDeletes;
+
+
+    /**
+     * Get roles
+     *
+     * @return BelongsToMany
+     */
+    public function permissions(): BelongsToMany
+    {
+        return $this->belongsToMany(Permission::class, 'roles_permissions');
+    }
 }
