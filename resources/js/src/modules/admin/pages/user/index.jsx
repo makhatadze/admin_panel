@@ -7,7 +7,6 @@ const columns = [
         title: 'Name',
         dataIndex: 'name',
         sorter: true,
-        render: name => `${name.first} ${name.last}`,
         width: '20%',
     },
     {
@@ -38,7 +37,7 @@ class User extends Component {
             data: [],
             pagination: {
                 current: 1,
-                pageSize: 10,
+                pageSize: 15,
             },
             loading: false,
         };
@@ -61,31 +60,30 @@ class User extends Component {
     };
 
     fetch(params = {}) {
-        console.log(params)
         this.setState({loading: true});
         reqwest({
-            url: 'https://randomuser.me/api',
+            url: 'http://127.0.0.1:8000/api/v1/users',
             method: 'get',
             type: 'json',
             data: getRandomuserParams(params),
-        }).then(data => {
+        }).then(res => {
             this.setState({
                 loading: false,
-                data: data.results,
+                data: res.data,
                 pagination: {
-                    ...params.pagination,
-                    total: 200,
+                    current: res.pagination.current_page,
+                    total: res.pagination.total,
                 },
             });
+            console.log(this.state)
         });
     };
-
     render() {
         const {data, pagination, loading} = this.state;
         return (
             <Table
                 columns={columns}
-                rowKey={record => record.login.uuid}
+                rowKey={record => record.id}
                 dataSource={data}
                 pagination={pagination}
                 loading={loading}

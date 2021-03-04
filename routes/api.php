@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\v1\Admin\UserController;
 use App\Http\Controllers\v1\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -9,11 +10,9 @@ Route::prefix('v1')->group(function () {
         Route::post('login', [AuthController::class, 'login']);
         Route::middleware('auth:api')->get('profile', [AuthController::class, 'getAuthenticatedUser']);
     });
-    Route::middleware('auth:api')->group(function () {
-        Route::middleware('can:read')->get('/test', function () {
-            return 1;
-        });
-    });
+
+    Route::resource('users', UserController::class)
+        ->name('index','userIndex');
 });
 
 

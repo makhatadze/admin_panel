@@ -26,9 +26,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('read', function ($test) {
-            return $test;
-            $this->abort();
+        Gate::define('read', function ($user) {
+            return true;
         });
     }
 
