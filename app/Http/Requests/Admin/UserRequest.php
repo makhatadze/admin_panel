@@ -1,6 +1,12 @@
 <?php
-
-namespace App\Http\Requests;
+/**
+ *  app/Http/Requests/Admin/UserRequest.php
+ *
+ * Date-Time: 05.03.21
+ * Time: 15:04
+ * @author Vito Makhatadze <vitomaxatadze@gmail.com>
+ */
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 

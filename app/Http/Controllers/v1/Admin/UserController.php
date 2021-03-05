@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\v1\Admin;
 
 use App\Http\Controllers\v1\ApiController;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\Admin\UserRequest;
 use App\Repositories\UserRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -19,7 +19,7 @@ class UserController extends ApiController
 
     public function index(UserRequest $request)
     {
-        return $this->userRepository->getUsers($request);
+        return $this->userRepository->getData($request);
     }
 
     /**

@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\Admin\UserRequest;
 use App\Http\Resources\UserCollection;
 use App\Models\User;
 use App\Repositories\Eloquent\Base\BaseRepository;
@@ -27,7 +27,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      *
      * @return UserCollection
      */
-    public function getUsers(UserRequest $request): UserCollection
+    public function getData(UserRequest $request): UserCollection
     {
         return new UserCollection($this->model->paginate());
     }
