@@ -7,7 +7,6 @@ const columns = [
         title: 'Name',
         dataIndex: 'name',
         sorter: true,
-        sortDirections: ['asc','desc'],
         width: '20%',
     },
     {
@@ -31,7 +30,7 @@ const getRandomuserParams = params => ({
     ...params,
 });
 
-class User extends Component {
+class Role extends Component {
     constructor() {
         super();
         this.state = {
@@ -63,7 +62,7 @@ class User extends Component {
     fetch(params = {}) {
         this.setState({loading: true});
         reqwest({
-            url: 'http://127.0.0.1:8000/api/v1/users',
+            url: 'http://127.0.0.1:8000/api/v1/roles',
             method: 'get',
             type: 'json',
             data: getRandomuserParams(params),
@@ -95,4 +94,4 @@ class User extends Component {
     }
 }
 
-export default User
+export default Role

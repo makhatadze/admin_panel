@@ -10,6 +10,7 @@ import User from "../modules/admin/pages/user";
 import GuestRoute from "./GuestRoute";
 import Map from "../modules/admin/pages/map";
 import NoMatch from "../modules/admin/pages/noMatch";
+import Role from "../modules/admin/pages/directive/role";
 
 
 
@@ -26,6 +27,7 @@ const Routes = () => {
                         <Switch>
                             <PrivateRoute path="/admin/user" component={User} />
                             <PrivateRoute path="/admin/map" component={Map} />
+                            <PrivateRoute path="/admin/directive/role" component={Role} />
                             <PrivateRoute component={NoMatch} />
                         </Switch>
                     </Dashboard>

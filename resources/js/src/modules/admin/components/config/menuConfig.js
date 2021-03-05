@@ -29,6 +29,19 @@ export default [
         ]
     },
     {
+        title: 'Directive',
+        key: '/admin/role',
+        icon: 'underline',
+        isLevel: false,
+        children: [
+            {
+                title: 'role',
+                key: '/admin/directive/role',
+                isLevel: true
+            },
+        ]
+    },
+    {
         title: 'City',
         key: '/admin/city',
         icon: 'area-chart',
