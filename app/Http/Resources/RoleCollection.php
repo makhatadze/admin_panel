@@ -1,9 +1,9 @@
 <?php
 /**
- *  app/Http/Resources/UserCollection.php
+ *  app/Http/Resources/RoleCollection.php
  *
  * Date-Time: 05.03.21
- * Time: 15:18
+ * Time: 14:54
  * @author Vito Makhatadze <vitomaxatadze@gmail.com>
  */
 namespace App\Http\Resources;
@@ -11,7 +11,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class UserCollection extends ResourceCollection
+class RoleCollection extends ResourceCollection
 {
     private $pagination;
 
@@ -39,8 +39,8 @@ class UserCollection extends ResourceCollection
     {
         return [
             'data' => $this->collection->map(
-                function ($user) {
-                    return new UserResource($user);
+                function ($role) {
+                    return new RoleResource($role);
                 }
             ),
             'pagination' => $this->pagination

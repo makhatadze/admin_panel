@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\v1\Admin\RoleController;
 use App\Http\Controllers\v1\Admin\UserController;
 use App\Http\Controllers\v1\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
@@ -11,8 +12,12 @@ Route::prefix('v1')->group(function () {
         Route::middleware('auth:api')->get('profile', [AuthController::class, 'getAuthenticatedUser']);
     });
 
-    Route::resource('users', UserController::class)
-        ->name('index','userIndex');
+    Route::middleware('auth:api')->group(function () {
+
+        Route::resource('roles', RoleController::class);
+    });
+    Route::resource('users', UserController::class);
+
 });
 
 
