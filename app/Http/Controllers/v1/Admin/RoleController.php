@@ -9,11 +9,9 @@
 namespace App\Http\Controllers\v1\Admin;
 
 use App\Exceptions\DataNotFoundException;
-use App\Exceptions\PermissionException;
 use App\Http\Requests\Admin\RoleRequest;
 use App\Http\Resources\RoleCollection;
 use App\Http\Resources\RoleResource;
-use App\Models\Directive\Role;
 use App\Repositories\RoleRepositoryInterface;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -29,7 +27,7 @@ class RoleController extends AdminController
         // Initialize roleRepository
         $this->roleRepository = $roleRepository;
 
-        $this->authorizeResource(Role::class);
+//        $this->authorizeResource(Role::class);
     }
 
     /**
@@ -58,13 +56,15 @@ class RoleController extends AdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  RoleRequest $request
      *
-     * @return Response
+     * @return RoleResource
      */
-    public function store(RoleRequest $request)
+    public function store(RoleRequest $request): RoleResource
     {
-        return $request->name;
+        // Get only name from request
+       $data = $request->only('name');
+        return new RoleResource($this->roleRepository->create($data));
     }
 
     /**
@@ -73,6 +73,7 @@ class RoleController extends AdminController
      * @param int $id
      *
      * @return DataNotFoundException|RoleResource|Exception|JsonResponse
+     * @throws DataNotFoundException
      */
     public function show(int $id)
     {
