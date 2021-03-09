@@ -1,13 +1,18 @@
 <?php
-
+/**
+ *  app/Http/Controllers/v1/Admin/UserController.php
+ *
+ * Date-Time: 09.03.21
+ * Time: 13:13
+ * @author Vito Makhatadze <vitomaxatadze@gmail.com>
+ */
 namespace App\Http\Controllers\v1\Admin;
 
-use App\Http\Controllers\v1\ApiController;
 use App\Http\Requests\Admin\UserRequest;
 use App\Repositories\UserRepositoryInterface;
 use Illuminate\Http\Request;
 
-class UserController extends ApiController
+class UserController extends AdminController
 {
 
     private $userRepository;

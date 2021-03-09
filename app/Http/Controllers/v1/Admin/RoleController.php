@@ -1,22 +1,35 @@
 <?php
-
+/**
+ *  app/Http/Controllers/v1/Admin/RoleController.php
+ *
+ * Date-Time: 09.03.21
+ * Time: 13:09
+ * @author Vito Makhatadze <vitomaxatadze@gmail.com>
+ */
 namespace App\Http\Controllers\v1\Admin;
 
-use App\Http\Controllers\v1\ApiController;
+use App\Exceptions\DataNotFoundException;
+use App\Exceptions\PermissionException;
 use App\Http\Requests\Admin\RoleRequest;
 use App\Http\Resources\RoleCollection;
+use App\Http\Resources\RoleResource;
 use App\Models\Directive\Role;
 use App\Repositories\RoleRepositoryInterface;
+use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class RoleController extends ApiController
+class RoleController extends AdminController
 {
     private $roleRepository;
 
     public function __construct(RoleRepositoryInterface $roleRepository)
     {
+        // Initialize roleRepository
         $this->roleRepository = $roleRepository;
+
+        $this->authorizeResource(Role::class);
     }
 
     /**
@@ -25,8 +38,9 @@ class RoleController extends ApiController
      * @param RoleRequest $request
      *
      * @return RoleCollection
+     *
      */
-    public function index(RoleRequest $request)
+    public function index(RoleRequest $request): RoleCollection
     {
         return $this->roleRepository->getData($request);
     }
@@ -44,41 +58,46 @@ class RoleController extends ApiController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
-        //
+        return $request->name;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id
+     *
+     * @return DataNotFoundException|RoleResource|Exception|JsonResponse
      */
-    public function show($id)
+    public function show(int $id)
     {
-        //
+        $data = $this->roleRepository->findOrFail($id);
+        return new RoleResource($data);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
-    public function edit($id)
+    public function edit(int $id)
     {
-        //
+
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     *
      * @return Response
      */
     public function update(Request $request, $id)
@@ -89,7 +108,8 @@ class RoleController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)
