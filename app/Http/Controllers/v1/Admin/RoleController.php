@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\v1\Admin;
 
 use App\Exceptions\DataNotFoundException;
+use App\Exceptions\TrashException;
 use App\Http\Requests\Admin\RoleRequest;
 use App\Http\Resources\RoleCollection;
 use App\Http\Resources\RoleResource;
@@ -36,7 +37,7 @@ class RoleController extends AdminController
      */
     protected function resourceMethodsWithoutModels(): array
     {
-        return ['index','store','update','destroy','show'];
+        return ['index','store','update','destroy','show','restore'];
     }
 
     /**
@@ -107,7 +108,7 @@ class RoleController extends AdminController
      * @param int $id
      *
      * @return RoleResource|JsonResponse
-     * @throws DataNotFoundException
+     * @throws TrashException
      */
     public function destroy(int $id)
     {
@@ -115,6 +116,25 @@ class RoleController extends AdminController
             return response()->json([
                 'status' => 400,
                 'message' => 'Can not deleted.'
+            ]);
+        }
+        return new RoleResource($this->roleRepository->findTrash($id));
+    }
+
+    /**
+     * Restore specified resource from storage.
+     *
+     * @param int $id
+     *
+     * @return RoleResource|JsonResponse
+     * @throws DataNotFoundException
+     */
+    public function restore(int $id)
+    {
+        if (false === $this->roleRepository->restore($id)) {
+            return response()->json([
+                'status' => 400,
+                'message' => 'Can not restored.'
             ]);
         }
         return new RoleResource($this->roleRepository->findOrFail($id));

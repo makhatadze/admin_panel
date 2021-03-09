@@ -52,6 +52,13 @@ interface EloquentRepositoryInterface
 
     /**
      * @param integer $id
+     *
+     * @return boolean
+     */
+    public function restore(int $id);
+
+    /**
+     * @param integer $id
      * @param array $columns
      */
     public function find(int $id, $columns = ['*']);
@@ -69,4 +76,10 @@ interface EloquentRepositoryInterface
      */
     public function findOrFail(int $id, $columns = ['*']);
 
+    /**
+     * @param integer $id
+     *
+     * @return Model
+     */
+    public function findTrash(int $id): Model;
 }

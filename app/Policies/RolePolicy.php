@@ -19,7 +19,7 @@ class RolePolicy
      * @return mixed
      * @throws PermissionException
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
         if (1===2) {
             throw new PermissionException();
@@ -55,12 +55,10 @@ class RolePolicy
      * Determine whether the user can update the model.
      *
      * @param User $user
-     * @param Role $role
      *
      * @return mixed
-     * @throws PermissionException
      */
-    public function update(User $user)
+    public function update(User $user): bool
     {
         return true;
     }
@@ -81,11 +79,10 @@ class RolePolicy
      * Determine whether the user can restore the model.
      *
      * @param User $user
-     * @param  \App\Models\Role  $role
      *
      * @return mixed
      */
-    public function restore(User $user, Role $role)
+    public function restore(User $user): bool
     {
         return true;
     }
@@ -93,12 +90,11 @@ class RolePolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param User  $user
-     * @param  \App\Models\Role  $role
+     * @param User $user
      *
      * @return mixed
      */
-    public function forceDelete(User $user, Role $role)
+    public function forceDelete(User $user): bool
     {
         return true;
 

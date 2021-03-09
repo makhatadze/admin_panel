@@ -3,6 +3,7 @@
 namespace App\Repositories\Eloquent\Base;
 
 use App\Exceptions\DataNotFoundException;
+use App\Exceptions\TrashException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -88,6 +89,20 @@ class BaseRepository implements EloquentRepositoryInterface
     }
 
     /**
+     * Restore model by the given ID
+     *
+     * @param integer $id
+     *
+     * @return boolean
+     */
+    public function restore(int $id): bool
+    {
+        return $this->findTrash($id)->restore();
+    }
+
+
+
+    /**
      * Find model by the given ID
      *
      * @param integer $id
@@ -148,5 +163,22 @@ class BaseRepository implements EloquentRepositoryInterface
             throw new DataNotFoundException();
         }
         return $data;
+    }
+
+    /**
+     * Restore model by the given ID
+     *
+     * @param integer $id
+     *
+     * @return Model
+     * @throws TrashException
+     */
+    public function findTrash(int $id): Model
+    {
+        $model = $this->model->withTrashed()->find($id);
+        if (null === $model->deleted_at) {
+            throw new TrashException();
+        }
+        return $model;
     }
 }
