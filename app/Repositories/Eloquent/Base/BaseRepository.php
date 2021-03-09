@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Eloquent\Base;
 
+use App\Exceptions\DataNotFoundException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -111,5 +112,23 @@ class BaseRepository implements EloquentRepositoryInterface
     public function findBy(string $field, $value, $columns = ['*'])
     {
         return $this->model->where($field, $value)->first($columns);
+    }
+
+    /**
+     * Find model by the given ID
+     *
+     * @param integer $id
+     * @param array $columns
+     *
+     * @return mixed
+     * @throws DataNotFoundException
+     */
+    public function findOrFail(int $id, $columns = ['*'])
+    {
+        $data = $this->model->find($id, $columns);
+        if (!$data) {
+            throw new DataNotFoundException();
+        }
+        return $data;
     }
 }

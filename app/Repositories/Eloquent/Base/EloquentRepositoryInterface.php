@@ -63,4 +63,10 @@ interface EloquentRepositoryInterface
      */
     public function findBy(string $field, $value, $columns = ['*']);
 
+    /**
+     * @param integer $id
+     * @param array $columns
+     */
+    public function findOrFail(int $id, $columns = ['*']);
+
 }
