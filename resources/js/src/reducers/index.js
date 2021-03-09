@@ -4,11 +4,13 @@ import errorReducer from "./errorReducer";
 import profileReducer from "./profileReducer";
 import userReducer from "./modules/userReducer";
 import layout from './layout';
+import roleReducer from "./modules/roleReducer";
 
 export default combineReducers({
     auth: authReducer,
     errors: errorReducer,
     profile: profileReducer,
     users: userReducer,
-    layout: layout
+    layout: layout,
+    roles: roleReducer
 });

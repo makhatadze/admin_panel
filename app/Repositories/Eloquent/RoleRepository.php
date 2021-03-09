@@ -53,7 +53,7 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface
         }
 
 
-        return new RoleCollection($data->paginate());
+        return new RoleCollection($data->paginate(1));
     }
 
 }
