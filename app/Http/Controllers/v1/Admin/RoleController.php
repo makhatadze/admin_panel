@@ -12,11 +12,10 @@ use App\Exceptions\DataNotFoundException;
 use App\Http\Requests\Admin\RoleRequest;
 use App\Http\Resources\RoleCollection;
 use App\Http\Resources\RoleResource;
+use App\Models\Directive\Role;
 use App\Repositories\RoleRepositoryInterface;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class RoleController extends AdminController
 {
@@ -27,7 +26,17 @@ class RoleController extends AdminController
         // Initialize roleRepository
         $this->roleRepository = $roleRepository;
 
-//        $this->authorizeResource(Role::class);
+        $this->authorizeResource(Role::class);
+    }
+
+    /**
+     * Get the list of resource methods which do not have model parameters.
+     *
+     * @return array
+     */
+    protected function resourceMethodsWithoutModels(): array
+    {
+        return ['index','store','update','destroy','show'];
     }
 
     /**
@@ -41,16 +50,6 @@ class RoleController extends AdminController
     public function index(RoleRequest $request): RoleCollection
     {
         return $this->roleRepository->getData($request);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -82,28 +81,24 @@ class RoleController extends AdminController
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function edit(int $id)
-    {
-
-    }
-
-    /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param RoleRequest $request
      * @param int $id
      *
-     * @return Response
+     * @return RoleResource|JsonResponse
+     * @throws DataNotFoundException
      */
-    public function update(Request $request, $id)
+    public function update(RoleRequest $request,int $id)
     {
-        //
+        $data = $request->only('name');
+        if ($this->roleRepository->update($id,$data)) {
+            return new RoleResource($this->roleRepository->findOrFail($id));
+        }
+        return response()->json([
+            'status' => 400,
+            'message' => 'Can not updated.'
+        ]);
     }
 
     /**
@@ -111,10 +106,17 @@ class RoleController extends AdminController
      *
      * @param int $id
      *
-     * @return Response
+     * @return RoleResource|JsonResponse
+     * @throws DataNotFoundException
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
-        //
+        if (false === $this->roleRepository->delete($id)) {
+            return response()->json([
+                'status' => 400,
+                'message' => 'Can not deleted.'
+            ]);
+        }
+        return new RoleResource($this->roleRepository->findOrFail($id));
     }
 }

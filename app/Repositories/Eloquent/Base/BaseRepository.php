@@ -72,7 +72,7 @@ class BaseRepository implements EloquentRepositoryInterface
      */
     public function update(int $id, $data = [], $attribute = 'id')
     {
-        return $this->model->where($attribute, $id)->update($data);
+        return $this->findOrFail($id)->update($data);
     }
 
     /**
@@ -126,6 +126,24 @@ class BaseRepository implements EloquentRepositoryInterface
     public function findOrFail(int $id, $columns = ['*'])
     {
         $data = $this->model->find($id, $columns);
+        if (!$data) {
+            throw new DataNotFoundException();
+        }
+        return $data;
+    }
+
+    /**
+     * Find model by the given ID
+     *
+     * @param integer $id
+     * @param array $columns
+     *
+     * @return mixed
+     * @throws DataNotFoundException
+     */
+    public function firstOrFail(int $id, $columns = ['*'])
+    {
+        $data = $this->model->firstOrFail($id, $columns);
         if (!$data) {
             throw new DataNotFoundException();
         }

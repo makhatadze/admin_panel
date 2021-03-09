@@ -13,7 +13,7 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::middleware('auth:api')->group(function () {
-        Route::apiResource('roles', RoleController::class);
+        Route::resource('role', RoleController::class);
     });
     Route::resource('users', UserController::class);
 

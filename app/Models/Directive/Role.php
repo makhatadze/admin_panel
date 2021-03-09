@@ -47,6 +47,10 @@ class Role extends Model
         static::creating(function ($role) {
            $role->slug = Str::slug($role->name);
         });
+
+        self::updating(function ($role) {
+            $role->slug = Str::slug($role->name);
+        });
     }
 
     /**

@@ -14,7 +14,7 @@ class RolePolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param \App\Models\User $user
+     * @param User $user
      *
      * @return mixed
      * @throws PermissionException
@@ -30,71 +30,77 @@ class RolePolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  User  $user
-     * @param  Role  $role
+     * @param User $user
+     *
      * @return mixed
      */
-    public function view(User $user, Role $role)
+    public function view(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\Models\User  $user
+     * @param User $user
+     *
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
      * Determine whether the user can update the model.
      *
-     * @param  User  $user
-     * @param  Role  $role
+     * @param User $user
+     * @param Role $role
+     *
      * @return mixed
+     * @throws PermissionException
      */
-    public function update(User $user, Role $role)
+    public function update(User $user)
     {
-        //
+        return true;
     }
+
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  User  $user
-     * @param  Role  $role
      * @return mixed
      */
-    public function delete(User $user, Role $role)
+    public function delete(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
      * Determine whether the user can restore the model.
      *
-     * @param  \App\Models\User  $user
+     * @param User $user
      * @param  \App\Models\Role  $role
+     *
      * @return mixed
      */
     public function restore(User $user, Role $role)
     {
-        //
+        return true;
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param  \App\Models\User  $user
+     * @param User  $user
      * @param  \App\Models\Role  $role
+     *
      * @return mixed
      */
     public function forceDelete(User $user, Role $role)
     {
-        //
+        return true;
+
     }
 }
