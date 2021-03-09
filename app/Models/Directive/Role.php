@@ -9,20 +9,38 @@
 
 namespace App\Models\Directive;
 
-use App\Http\Requests\Admin\RoleRequest;
 use App\Models\User;
 use App\Traits\RoleFilters;
-use http\Env\Request;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use RichanFongdasen\EloquentBlameable\BlameableTrait;
 
+/**
+ * @mixin Builder
+ */
 class Role extends Model
 {
     use BlameableTrait, softDeletes, RoleFilters;
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'roles';
 
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($role) {
+           $role->slug = Str::slug($role->name);
+        });
+    }
 
     /**
      * Get roles
