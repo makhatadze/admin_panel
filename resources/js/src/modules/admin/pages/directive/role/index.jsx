@@ -1,9 +1,9 @@
 import React, {Component} from "react";
-import {Table} from 'antd';
+import {Button, Table} from 'antd';
 import * as PropTypes from "prop-types";
 import {withTranslation} from "react-i18next";
 import {connect} from "react-redux";
-import {getRoles, setRolesSearchParams} from "../../../../../actions/role/roleActions";
+import {getRoles, setModalShow, setRolesSearchParams} from "../../../../../actions/role/roleActions";
 import {roleSearchParam} from "./roleQuery";
 
 const columns = [
@@ -54,29 +54,42 @@ class Role extends Component {
         this.props.getRoles(roleSearchParam(searchParams))
     };
 
+    showRoleForm() {
+        setModalShow(true)
+    }
+
     render() {
         const {data, searchData} = this.props.roles;
+        const {t} = this.props;
+
         return (
-            <Table
-                columns={columns}
-                rowKey={record => record.id}
-                dataSource={data}
-                pagination={searchData}
-                loading={searchData.loading}
-                scroll={{y: 480}}
-                onChange={this.handleTableChange}
-            />
+            <>
+                <Button className="mb-4" type="primary" onClick={this.showRoleForm}>
+                    {t('Create Role')}
+                </Button>
+                <Table
+                    columns={columns}
+                    rowKey={record => record.id}
+                    dataSource={data}
+                    pagination={searchData}
+                    loading={searchData.loading}
+                    scroll={{y: 480}}
+                    onChange={this.handleTableChange}
+                />
+            </>
+
         );
     }
 }
 
 Role.propTypes = {
     getRoles: PropTypes.func.isRequired,
-    setRolesSearchParams: PropTypes.func.isRequired
+    setRolesSearchParams: PropTypes.func.isRequired,
+    setModalShow: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
     roles: state.roles
 })
 
-export default withTranslation()(connect(mapStateToProps, {getRoles, setRolesSearchParams})(Role));
+export default withTranslation()(connect(mapStateToProps, {getRoles, setRolesSearchParams,setModalShow})(Role));

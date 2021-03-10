@@ -15,11 +15,9 @@ class RoleForm extends Component {
 
 
     render() {
+        const {t} = this.props;
         return (
             <div>
-                <Button type="primary" onClick={() => this.setState({showModal: true})}>
-                    Open Modal
-                </Button>
                 <Modal title="Basic Modal" visible={this.state.showModal} onOk={() => () => this.setState({showModal: false})} onCancel={() => this.setState({showModal: false})}>
                     <p>Some contents...</p>
                     <p>Some contents...</p>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_ROLES, ROLES_LOADING, SET_ROLES_SEARCH} from "./roleTypes";
+import {GET_ROLES, ROLES_LOADING, SET_ROLES_SEARCH, SET_SHOW_MODAL} from "./roleTypes";
 
 
 // Get current profile
@@ -30,9 +30,17 @@ export const setRolesLoading = () => {
 
 // Users loading
 export const setRolesSearchParams = (payload) => {
-    console.log(payload)
     return {
         type: SET_ROLES_SEARCH,
+        payload
+    };
+};
+
+// Set ShowModal
+export const setModalShow = (payload) => {
+    console.log(123)
+    return {
+        type: SET_SHOW_MODAL,
         payload
     };
 };

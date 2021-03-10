@@ -1,4 +1,4 @@
-import {GET_ROLES, ROLES_LOADING, SET_ROLES_SEARCH} from "../../actions/role/roleTypes";
+import {GET_ROLES, ROLES_LOADING, SET_ROLES_SEARCH, SET_SHOW_MODAL} from "../../actions/role/roleTypes";
 
 
 const initialState = {
@@ -12,6 +12,7 @@ const initialState = {
         total: null,
         pageSize: 1,
     },
+    showModal: false
 };
 
 export default function (state = initialState, action) {
@@ -36,6 +37,11 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 searchData: action.payload
+            }
+        case SET_SHOW_MODAL:
+            return {
+                ...state,
+                showModal: true
             }
         default:
             return state;
