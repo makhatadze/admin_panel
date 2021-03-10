@@ -29,7 +29,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      */
     public function getData(UserRequest $request): UserCollection
     {
-        return new UserCollection($this->model->paginate());
+        return new UserCollection($this->model->paginate(1));
     }
 
 }

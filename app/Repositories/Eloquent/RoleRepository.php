@@ -52,8 +52,9 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface
             $data->{$methodToExecute}($value);
         }
 
+        
 
-        return new RoleCollection($data->paginate(1));
+        return new RoleCollection($data->paginate(2));
     }
 
 }

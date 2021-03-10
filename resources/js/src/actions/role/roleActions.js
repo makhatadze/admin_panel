@@ -1,12 +1,12 @@
 import axios from 'axios';
-import {GET_ROLES, ROLES_LOADING} from "./roleTypes";
+import {GET_ROLES, ROLES_LOADING, SET_ROLES_SEARCH} from "./roleTypes";
 
 
 // Get current profile
-export const getRoles = () => dispatch => {
+export const getRoles = (query) => dispatch => {
     dispatch(setRolesLoading());
     axios
-        .get('/api/v1/role')
+        .get(`/api/v1/role${query}`)
         .then(res =>
             dispatch({
                 type: GET_ROLES,
@@ -28,5 +28,12 @@ export const setRolesLoading = () => {
     };
 };
 
-
+// Users loading
+export const setRolesSearchParams = (payload) => {
+    console.log(payload)
+    return {
+        type: SET_ROLES_SEARCH,
+        payload
+    };
+};
 

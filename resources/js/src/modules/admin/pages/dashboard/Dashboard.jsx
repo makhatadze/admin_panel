@@ -9,6 +9,7 @@ import Sider from "antd/es/layout/Sider";
 import Layout, {Content, Footer} from "antd/es/layout/layout";
 import {withRouter} from "react-router";
 import {withTranslation} from "react-i18next";
+import RoleForm from "../directive/role/RoleForm";
 
 class Dashboard extends Component {
     constructor(props) {
@@ -44,6 +45,7 @@ class Dashboard extends Component {
                                 <CHeader />
                                 <Content className="content">
                                     { this.props.children }
+                                    <RoleForm />
                                 </Content>
                                 <Footer className="footer">
                                     <p>Copyright © 2021</p>

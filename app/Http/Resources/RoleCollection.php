@@ -19,10 +19,9 @@ class RoleCollection extends ResourceCollection
     {
         $this->pagination = [
             'total' => $resource->total(),
-            'count' => $resource->count(),
-            'per_page' => $resource->perPage(),
-            'current_page' => $resource->currentPage(),
-            'total_pages' => $resource->lastPage()
+            'count' => $resource->lastPage(),
+            'current' => $resource->currentPage(),
+            'pageSize' => $resource->perPage()
         ];
 
         $resource = $resource->getCollection();
