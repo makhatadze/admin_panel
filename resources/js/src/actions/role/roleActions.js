@@ -1,5 +1,23 @@
 import axios from 'axios';
-import {GET_ROLES, ROLES_LOADING, SET_ROLES_SEARCH, SET_SHOW_MODAL} from "./roleTypes";
+import {CLEAR_SEARCH_DATA, GET_ROLES, ROLES_LOADING, SET_ROLES_SEARCH, SET_SHOW_MODAL} from "./roleTypes";
+import {GET_ERRORS} from "../types";
+
+
+// AddRole
+export const addRole = roleData => (dispatch,getState) => {
+    axios
+        .post('http://127.0.0.1:8000/api/v1/role', roleData)
+        .then(res => {
+            dispatch(clearSearchData())
+            dispatch(getRoles(''));
+        })
+        .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: JSON.parse(err.response.data.errors)
+            })
+        });
+};
 
 
 // Get current profile
@@ -21,14 +39,14 @@ export const getRoles = (query) => dispatch => {
         );
 };
 
-// Users loading
+// Set Roles loading
 export const setRolesLoading = () => {
     return {
         type: ROLES_LOADING
     };
 };
 
-// Users loading
+// Set Roles Params
 export const setRolesSearchParams = (payload) => {
     return {
         type: SET_ROLES_SEARCH,
@@ -38,10 +56,16 @@ export const setRolesSearchParams = (payload) => {
 
 // Set ShowModal
 export const setModalShow = (payload) => {
-    console.log(123)
     return {
         type: SET_SHOW_MODAL,
         payload
+    };
+};
+
+// Set ShowModal
+export const clearSearchData = () => {
+    return {
+        type: CLEAR_SEARCH_DATA
     };
 };
 

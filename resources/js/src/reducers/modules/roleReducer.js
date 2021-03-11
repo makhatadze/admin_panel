@@ -1,8 +1,15 @@
-import {GET_ROLES, ROLES_LOADING, SET_ROLES_SEARCH, SET_SHOW_MODAL} from "../../actions/role/roleTypes";
+import {
+    ADD_ROLE,
+    CLEAR_SEARCH_DATA,
+    GET_ROLES,
+    ROLES_LOADING,
+    SET_ROLES_SEARCH,
+    SET_SHOW_MODAL
+} from "../../actions/role/roleTypes";
 
 
 const initialState = {
-    data: null,
+    data: [],
     searchData: {
         loading: false,
         keyword: '',
@@ -41,7 +48,24 @@ export default function (state = initialState, action) {
         case SET_SHOW_MODAL:
             return {
                 ...state,
-                showModal: true
+                showModal: action.payload
+            }
+        // case ADD_ROLE:
+        //     return {
+        //         ...state
+        //     }
+        case CLEAR_SEARCH_DATA:
+            return {
+                ...state,
+                searchData: {
+                    loading: false,
+                    keyword: '',
+                    count: null,
+                    per_page: null,
+                    current: 1,
+                    total: null,
+                    pageSize: null,
+                },
             }
         default:
             return state;

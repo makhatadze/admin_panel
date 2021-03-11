@@ -8,7 +8,7 @@
  */
 namespace App\Http\Controllers\v1\Admin;
 
-use App\Exceptions\DataNotFoundException;
+use App\Exceptions\ValidationException;
 use App\Exceptions\TrashException;
 use App\Http\Requests\Admin\RoleRequest;
 use App\Http\Resources\RoleCollection;
@@ -72,8 +72,8 @@ class RoleController extends AdminController
      *
      * @param int $id
      *
-     * @return DataNotFoundException|RoleResource|Exception|JsonResponse
-     * @throws DataNotFoundException
+     * @return ValidationException|RoleResource|Exception|JsonResponse
+     * @throws ValidationException
      */
     public function show(int $id)
     {
@@ -88,7 +88,7 @@ class RoleController extends AdminController
      * @param int $id
      *
      * @return RoleResource|JsonResponse
-     * @throws DataNotFoundException
+     * @throws ValidationException
      */
     public function update(RoleRequest $request,int $id)
     {
@@ -127,7 +127,7 @@ class RoleController extends AdminController
      * @param int $id
      *
      * @return RoleResource|JsonResponse
-     * @throws DataNotFoundException
+     * @throws ValidationException
      */
     public function restore(int $id)
     {

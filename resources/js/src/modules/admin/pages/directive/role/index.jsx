@@ -32,6 +32,7 @@ class Role extends Component {
     constructor(props) {
         super(props);
         this.handleTableChange = this.handleTableChange.bind(this)
+        this.showRoleForm = this.showRoleForm.bind(this)
     }
 
     componentDidMount() {
@@ -54,17 +55,16 @@ class Role extends Component {
         this.props.getRoles(roleSearchParam(searchParams))
     };
 
-    showRoleForm() {
-        setModalShow(true)
+    showRoleForm(value) {
+        this.props.setModalShow(value)
     }
 
     render() {
-        const {data, searchData} = this.props.roles;
+        const {data, searchData,showModal} = this.props.roles;
         const {t} = this.props;
-
         return (
             <>
-                <Button className="mb-4" type="primary" onClick={this.showRoleForm}>
+                <Button className="mb-4" type="primary" onClick={ () => this.showRoleForm(!showModal)}>
                     {t('Create Role')}
                 </Button>
                 <Table

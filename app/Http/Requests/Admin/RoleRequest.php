@@ -8,10 +8,10 @@
  */
 namespace App\Http\Requests\Admin;
 
+use App\Exceptions\ValidationException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
 class RoleRequest extends FormRequest
 {
@@ -65,14 +65,6 @@ class RoleRequest extends FormRequest
      */
     protected function failedValidation(Validator $validator)
     {
-        $response = response()->json([
-            'status' => 422,
-            'message' => 'Ops! Some errors occurred',
-            'errors' => $validator->errors()
-        ]);
-
-        throw (new ValidationException($validator, $response))
-            ->errorBag($this->errorBag)
-            ->redirectTo($this->getRedirectUrl());
+        throw new ValidationException($validator->errors());
     }
 }
