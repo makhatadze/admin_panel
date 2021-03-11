@@ -1,22 +1,26 @@
 import axios from 'axios';
 import {CLEAR_SEARCH_DATA, GET_ROLES, ROLES_LOADING, SET_ROLES_SEARCH, SET_SHOW_MODAL} from "./roleTypes";
 import {GET_ERRORS} from "../types";
-
+import {toast} from "react-toastify";
 
 // AddRole
 export const addRole = roleData => (dispatch,getState) => {
-    axios
-        .post('http://127.0.0.1:8000/api/v1/role', roleData)
-        .then(res => {
-            dispatch(clearSearchData())
-            dispatch(getRoles(''));
-        })
-        .catch(err => {
-            dispatch({
-                type: GET_ERRORS,
-                payload: JSON.parse(err.response.data.errors)
+    return new Promise(async (resolve, reject) => {
+        axios
+            .post('http://127.0.0.1:8000/api/v1/role', roleData)
+            .then(res => {
+                dispatch(clearSearchData())
+                dispatch(getRoles(''));
+                resolve('Role Created SuccessFull');
             })
-        });
+            .catch(err => {
+                reject('Role Not Created');
+                dispatch({
+                    type: GET_ERRORS,
+                    payload: JSON.parse(err.response.data.errors)
+                })
+            });
+    })
 };
 
 

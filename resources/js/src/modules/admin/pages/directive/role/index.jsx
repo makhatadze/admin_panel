@@ -45,7 +45,6 @@ class Role extends Component {
     }
 
     handleTableChange(pagination, filters, sorter) {
-        console.log(pagination)
         let searchParams = {
             loading: true,
             keyword: '',

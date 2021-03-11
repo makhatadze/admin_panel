@@ -10,6 +10,7 @@ import Layout, {Content, Footer} from "antd/es/layout/layout";
 import {withRouter} from "react-router";
 import {withTranslation} from "react-i18next";
 import RoleForm from "../directive/role/RoleForm";
+import {ToastContainer} from "react-toastify";
 
 class Dashboard extends Component {
     constructor(props) {
@@ -43,6 +44,7 @@ class Dashboard extends Component {
                             </Sider>
                             <Layout className="main-wrapper">
                                 <CHeader />
+                                <ToastContainer />
                                 <Content className="content">
                                     { this.props.children }
                                     <RoleForm />

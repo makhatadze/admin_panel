@@ -6,7 +6,6 @@ import {Button} from "antd";
 import * as PropTypes from "prop-types";
 import {addRole, setModalShow} from "../../../../../actions/role/roleActions";
 import TextFieldGroup from "../../../components/TextFieldGroup";
-import {Link} from "react-router-dom";
 import {toast} from "react-toastify";
 
 
@@ -21,21 +20,38 @@ class RoleForm extends Component {
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.closeRoleForm = this.closeRoleForm.bind(this);
 
 
     }
     componentWillReceiveProps(nextProps) {
-        if (nextProps.errors) {
-            this.setState({errors: nextProps.errors});
-        }
+        // if (nextProps.errors) {
+        //     this.setState({errors: nextProps.errors});
+        // }
     }
 
-    onSubmit(e) {
+    async onSubmit(e) {
         e.preventDefault();
         const roleData = {
             name: this.state.name
         };
-        this.props.addRole(roleData);
+        this.setState({errors: {},loading: true})
+        await this.props.addRole(roleData)
+            .then((res) => {
+                this.setState({loading: false})
+                this.props.setModalShow(false)
+                this.closeRoleForm()
+                toast.success(res)
+            })
+            .catch((err) => {
+                this.setState({errors: this.props.errors,loading:false});
+                toast.error(this.props.t(err))
+            })
+    }
+
+    closeRoleForm() {
+        this.setState({name: '',errors: {}})
+        this.props.setModalShow(false)
     }
 
     onChange(e) {
@@ -48,7 +64,7 @@ class RoleForm extends Component {
         const { showModal } =this.props.roles
         return (
             <div>
-                <Modal footer={null} title={t('Create Role')} visible={showModal} onOk={() => console.log('ok')} onCancel={() => this.props.setModalShow(false)}>
+                <Modal footer={null} title={t('Create Role')} visible={showModal} onOk={() => console.log('ok')} maskClosable={false} onCancel={this.closeRoleForm}>
                     <form onSubmit={this.onSubmit}>
                         <TextFieldGroup
                             placeholder={t('Enter Name')}
