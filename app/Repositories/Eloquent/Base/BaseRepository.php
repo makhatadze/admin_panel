@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Eloquent\Base;
 
-use App\Exceptions\DataNotFoundException;
+use App\Exceptions\ValidationException;
 use App\Exceptions\TrashException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
@@ -136,13 +136,13 @@ class BaseRepository implements EloquentRepositoryInterface
      * @param array $columns
      *
      * @return mixed
-     * @throws DataNotFoundException
+     * @throws ValidationException
      */
     public function findOrFail(int $id, $columns = ['*'])
     {
         $data = $this->model->find($id, $columns);
         if (!$data) {
-            throw new DataNotFoundException();
+            throw new ValidationException();
         }
         return $data;
     }
@@ -154,13 +154,13 @@ class BaseRepository implements EloquentRepositoryInterface
      * @param array $columns
      *
      * @return mixed
-     * @throws DataNotFoundException
+     * @throws ValidationException
      */
     public function firstOrFail(int $id, $columns = ['*'])
     {
         $data = $this->model->firstOrFail($id, $columns);
         if (!$data) {
-            throw new DataNotFoundException();
+            throw new ValidationException();
         }
         return $data;
     }
