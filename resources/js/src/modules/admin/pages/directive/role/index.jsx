@@ -6,33 +6,29 @@ import {connect} from "react-redux";
 import {getRoles, setModalShow, setRolesSearchParams} from "../../../../../actions/role/roleActions";
 import {roleSearchParam} from "./roleQuery";
 
-const columns = [
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        sorter: true,
-        width: '20%',
-    },
-    {
-        title: 'Gender',
-        dataIndex: 'gender',
-        filters: [
-            {text: 'Male', value: 'male'},
-            {text: 'Female', value: 'female'},
-        ],
-        width: '20%',
-    },
-    {
-        title: 'Email',
-        dataIndex: 'email',
-    },
-];
 
 class Role extends Component {
     constructor(props) {
         super(props);
         this.handleTableChange = this.handleTableChange.bind(this)
         this.showRoleForm = this.showRoleForm.bind(this)
+        this.editRole = this.editRole.bind(this)
+
+        this.columns = [
+            {
+                title: 'Name',
+                dataIndex: 'name',
+                sorter: true,
+                width: '60%',
+            },
+            {
+                title: 'Action',
+                dataIndex: '',
+                key: 'x',
+                width: '40%',
+                render: (e) => <a className="ant-dropdown-link" onClick={() => this.editRole(e)}>Edit</a>
+            },
+        ];
     }
 
     componentDidMount() {
@@ -55,7 +51,17 @@ class Role extends Component {
     };
 
     showRoleForm(value) {
-        this.props.setModalShow(value)
+        this.props.setModalShow({
+            showModal: value,
+            modalRole: {}
+        })
+    }
+
+    editRole(role) {
+        this.props.setModalShow({
+            showModal: true,
+            modalRole: role
+        })
     }
 
     render() {
@@ -67,7 +73,7 @@ class Role extends Component {
                     {t('Create Role')}
                 </Button>
                 <Table
-                    columns={columns}
+                    columns={this.columns}
                     rowKey={record => record.id}
                     dataSource={data}
                     pagination={searchData}

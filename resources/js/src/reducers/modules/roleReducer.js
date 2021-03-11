@@ -1,10 +1,9 @@
 import {
-    ADD_ROLE,
     CLEAR_SEARCH_DATA,
     GET_ROLES,
     ROLES_LOADING,
     SET_ROLES_SEARCH,
-    SET_SHOW_MODAL
+    SET_SHOW_MODAL, SET_UPDATE_ROLE
 } from "../../actions/role/roleTypes";
 
 
@@ -19,7 +18,8 @@ const initialState = {
         total: null,
         pageSize: 1,
     },
-    showModal: false
+    showModal: false,
+    modalRole: {}
 };
 
 export default function (state = initialState, action) {
@@ -48,12 +48,14 @@ export default function (state = initialState, action) {
         case SET_SHOW_MODAL:
             return {
                 ...state,
-                showModal: action.payload
+                showModal: action.payload.showModal,
+                modalRole: action.payload.modalRole
             }
-        // case ADD_ROLE:
-        //     return {
-        //         ...state
-        //     }
+        case SET_UPDATE_ROLE:
+            return {
+                ...state,
+                data: state.data.map(el => el.id === action.payload.data.id ? action.payload.data : el)
+            }
         case CLEAR_SEARCH_DATA:
             return {
                 ...state,

@@ -1,5 +1,12 @@
 import axios from 'axios';
-import {CLEAR_SEARCH_DATA, GET_ROLES, ROLES_LOADING, SET_ROLES_SEARCH, SET_SHOW_MODAL} from "./roleTypes";
+import {
+    CLEAR_SEARCH_DATA,
+    GET_ROLES,
+    ROLES_LOADING,
+    SET_ROLES_SEARCH,
+    SET_SHOW_MODAL,
+    SET_UPDATE_ROLE
+} from "./roleTypes";
 import {GET_ERRORS} from "../types";
 import {toast} from "react-toastify";
 
@@ -19,6 +26,26 @@ export const addRole = roleData => (dispatch,getState) => {
                     type: GET_ERRORS,
                     payload: JSON.parse(err.response.data.errors)
                 })
+            });
+    })
+};
+
+// UpdateRole
+export const updateRole = roleData => (dispatch,getState) => {
+    return new Promise(async (resolve, reject) => {
+        axios
+            .put(`http://127.0.0.1:8000/api/v1/role/${roleData.id}`, roleData)
+            .then(res => {
+                dispatch(setUpdateRole(res.data));
+                resolve('Role Updated');
+            })
+            .catch(err => {
+                dispatch({
+                    type: GET_ERRORS,
+                    payload: JSON.parse(err.response.data.errors)
+                })
+                reject('Role Not Updated');
+
             });
     })
 };
@@ -70,6 +97,14 @@ export const setModalShow = (payload) => {
 export const clearSearchData = () => {
     return {
         type: CLEAR_SEARCH_DATA
+    };
+};
+
+// Set ShowModal
+export const setUpdateRole = (payload) => {
+    return {
+        type: SET_UPDATE_ROLE,
+        payload
     };
 };
 
