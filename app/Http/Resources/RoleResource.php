@@ -20,10 +20,10 @@ class RoleResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'created_by' => new UserResource($this->createdBy),
-            'updated_by' => new UserResource($this->updatedBy),
+            'createdAt' => $this->created_at,
+            'updatedAt' => $this->updated_at,
+            'createdBy' => new UserResource($this->createdBy),
+            'updatedBy' => new UserResource($this->updatedBy),
         ];
     }
 }
