@@ -52,9 +52,18 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface
             $data->{$methodToExecute}($value);
         }
 
-        
+        $sort = 'id';
+        $order = 'DESC';
 
-        return new RoleCollection($data->orderBy('id','DESC')->paginate(10));
+        if ($request->sort && $request->order) {
+            $sort= $request->sort;
+            $order = strtoupper($request->order);
+        }
+
+
+        $data = $data->orderBy($sort,$order)->paginate(10);
+
+        return new RoleCollection($data);
     }
 
 }
