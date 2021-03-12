@@ -1,13 +1,12 @@
 import axios from 'axios';
 import {
-    CLEAR_SEARCH_DATA,
+    CLEAR_ROLE_SEARCH_DATA,
     GET_ROLES,
     ROLES_LOADING, SET_ROLE_SEARCH_QUERY, SET_ROLE_SHOW_MODAL,
     SET_ROLES_SEARCH, SET_SHOW_ROLE_MODAL_VIEW,
     SET_UPDATE_ROLE
 } from "./roleTypes";
 import {GET_ERRORS} from "../types";
-import {toast} from "react-toastify";
 
 // AddRole
 export const addRole = roleData => (dispatch,getState) => {
@@ -87,7 +86,7 @@ export const setRolesSearchParams = (payload) => {
 // Set ShowModal
 export const setModalShow = (payload) => {
     return {
-        type: SET_SHOW_MODAL,
+        type: SET_ROLE_SHOW_MODAL,
         payload
     };
 };
