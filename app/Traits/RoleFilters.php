@@ -15,8 +15,7 @@ trait RoleFilters
 {
     public $filters = [
         'id' => 'checkId',
-        'name' => 'name',
-        'slug' => 'slug',
+        'name' => 'name'
     ];
 
     public function validateFilter(string $filter, $value)
@@ -38,12 +37,8 @@ trait RoleFilters
             ],
             'name' => [
                 'hasParam' => true,
-                'scopeMethod' => 'department'
+                'scopeMethod' => 'name'
             ],
-            'slug' => [
-                'hasParam' => true,
-                'scopeMethod' => 'slug'
-            ]
         ];
     }
 
@@ -75,13 +70,13 @@ trait RoleFilters
         return true;
     }
 
-    public function scopeId($query,$id)
+    public function scopeId($query, $id)
     {
-        return $query->where('id',$id);
+        return $query->where('id', $id);
     }
 
-    public function scopeSlug($query,$slug)
+    public function scopeName($query, $name)
     {
-        return $query->where('slug','like','%'.$slug.'%');
+        return $query->where('name', 'like', '%' . $name . '%');
     }
 }
