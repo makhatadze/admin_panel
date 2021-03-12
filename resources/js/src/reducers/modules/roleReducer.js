@@ -25,6 +25,7 @@ const initialState = {
         sort: 'id',
         order: 'desc'
     },
+    searchQuery: '',
     showModal: false,
     modalRole: {}
 };
@@ -78,6 +79,12 @@ export default function (state = initialState, action) {
                     pageSize: null,
                 },
             }
+        case SET_ROLE_SEARCH_QUERY:
+            return {
+                ...state,
+                searchQuery: `?${queryString.stringify(getSearchQueryParams(state.searchData))}`
+            }
+
         default:
             return state;
     }
