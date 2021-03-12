@@ -1,9 +1,12 @@
+const queryString = require('query-string');
+
 import {
-    CLEAR_SEARCH_DATA,
+    CLEAR_ROLE_SEARCH_DATA,
     GET_ROLES,
-    ROLES_LOADING,
-    SET_ROLES_SEARCH,
-    SET_SHOW_MODAL, SET_UPDATE_ROLE
+    ROLES_LOADING, SET_ROLE_SEARCH_QUERY,
+    SET_ROLE_SHOW_MODAL,
+    SET_ROLES_SEARCH, SET_SHOW_ROLE_MODAL_VIEW,
+    SET_UPDATE_ROLE
 } from "../../actions/role/roleTypes";
 
 
@@ -16,7 +19,11 @@ const initialState = {
         per_page: 2,
         current: 1,
         total: null,
-        pageSize: 1,
+        pageSize: 10,
+        id: '',
+        name: '',
+        sort: 'id',
+        order: 'desc'
     },
     showModal: false,
     modalRole: {}
@@ -28,6 +35,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 searchData: {
+                    ... state.searchData,
                     loading: true
                 }
             };
@@ -36,8 +44,9 @@ export default function (state = initialState, action) {
                 ...state,
                 data: action.payload.data,
                 searchData: {
-                    loading : false,
-                    ...action.payload.pagination
+                    ...state.searchData,
+                    ... action.payload.pagination,
+                    loading: false
                 }
             };
         case SET_ROLES_SEARCH:
@@ -56,7 +65,7 @@ export default function (state = initialState, action) {
                 ...state,
                 data: state.data.map(el => el.id === action.payload.data.id ? action.payload.data : el)
             }
-        case CLEAR_SEARCH_DATA:
+        case CLEAR_ROLE_SEARCH_DATA:
             return {
                 ...state,
                 searchData: {
@@ -71,5 +80,16 @@ export default function (state = initialState, action) {
             }
         default:
             return state;
+    }
+}
+
+function getSearchQueryParams(searchData) {
+    return {
+        per_page: searchData.pageSize,
+        page: searchData.current,
+        id: searchData.id,
+        name: searchData.name,
+        sort: searchData.sort,
+        order: searchData.order
     }
 }
