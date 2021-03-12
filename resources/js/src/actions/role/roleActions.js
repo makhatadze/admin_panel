@@ -2,9 +2,8 @@ import axios from 'axios';
 import {
     CLEAR_SEARCH_DATA,
     GET_ROLES,
-    ROLES_LOADING,
-    SET_ROLES_SEARCH,
-    SET_SHOW_MODAL,
+    ROLES_LOADING, SET_ROLE_SEARCH_QUERY, SET_ROLE_SHOW_MODAL,
+    SET_ROLES_SEARCH, SET_SHOW_ROLE_MODAL_VIEW,
     SET_UPDATE_ROLE
 } from "./roleTypes";
 import {GET_ERRORS} from "../types";
@@ -93,10 +92,18 @@ export const setModalShow = (payload) => {
     };
 };
 
-// Set ShowModal
+// Show Role Modal View
+export const setRoleModalView = (payload) => {
+    return {
+        type: SET_SHOW_ROLE_MODAL_VIEW,
+        payload
+    };
+};
+
+// Set
 export const clearSearchData = () => {
     return {
-        type: CLEAR_SEARCH_DATA
+        type: CLEAR_ROLE_SEARCH_DATA
     };
 };
 
@@ -108,3 +115,8 @@ export const setUpdateRole = (payload) => {
     };
 };
 
+export const setRoleSearchQuery = () => {
+    return {
+        type: SET_ROLE_SEARCH_QUERY
+    }
+}

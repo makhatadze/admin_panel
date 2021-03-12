@@ -61,6 +61,12 @@ export default function (state = initialState, action) {
                 showModal: action.payload.showModal,
                 modalRole: action.payload.modalRole
             }
+        case SET_SHOW_ROLE_MODAL_VIEW:
+            return {
+                ...state,
+                showRoleModalView: action.payload.showRoleModalView,
+                roleModalView: action.payload.roleModalView
+            }
         case SET_UPDATE_ROLE:
             return {
                 ...state,
