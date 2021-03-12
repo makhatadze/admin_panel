@@ -11,7 +11,8 @@ import {withRouter} from "react-router";
 import {withTranslation} from "react-i18next";
 import RoleForm from "../directive/role/RoleForm";
 import {ToastContainer} from "react-toastify";
-
+import './dashboard.scss'
+import RoleView from "../directive/role/RoleView";
 class Dashboard extends Component {
     constructor(props) {
         super(props);
