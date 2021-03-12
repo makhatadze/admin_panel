@@ -11,6 +11,7 @@ import GuestRoute from "./GuestRoute";
 import Map from "../modules/admin/pages/map";
 import NoMatch from "../modules/admin/pages/noMatch";
 import Role from "../modules/admin/pages/directive/role";
+import Permission from "../modules/admin/pages/directive/permission/Index";
 
 
 
@@ -28,6 +29,7 @@ const Routes = () => {
                             <PrivateRoute path="/admin/user" component={User} />
                             <PrivateRoute path="/admin/map" component={Map} />
                             <PrivateRoute path="/admin/directive/role" component={Role} />
+                            <PrivateRoute path="/admin/directive/permission" component={Permission} />
                             <PrivateRoute component={NoMatch} />
                         </Switch>
                     </Dashboard>
